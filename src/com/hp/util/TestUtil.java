@@ -20,7 +20,9 @@ public class TestUtil {
         System.out.println("*****************************************");
         System.out.println("********请输入您想取款的数目：*********");
         System.out.println("********1.100        2.200*********");
-        System.out.println("********3.600       4.其他***********");
+        System.out.println("********3.300        4.400*********");
+        System.out.println("********5.500        6.1000***********");
+        System.out.println("********7.2000       8.其他***********");
         System.out.println("*****************************************");
     }
 }
