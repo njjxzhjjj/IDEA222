@@ -12,7 +12,7 @@ public class Customer {
         this.account = account;
     }
 
-    public String getPassword(String s) {
+    public String getPassword() {
         return password;
     }
 
