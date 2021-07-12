@@ -12,7 +12,6 @@ public class CustomerService {
     //成员变量
     private List<Customer> customerList;
     private Customer currentCustomer;
-    private Scanner scanner;
 
     //1、查 登录 判断账号密码是否正确
     public void checkpwd(String cardid, String cardPwd) {
@@ -48,11 +47,13 @@ public class CustomerService {
                 break;
             case "2":
                 System.out.println("取款");
+                //1、
                 TestUtil.twoLeveOption();//取款页面
                 do1SelectMoney();//取款
                 goOneHome();
                 break;
             case "3":
+                TestUtil.twoLeveOption();
                 System.out.println("转账");
                 do2SelectMoney();
                 goOneHome();
@@ -64,6 +65,8 @@ public class CustomerService {
                 break;
             case "5":
                 System.out.println("退卡");
+                doQuitCard();
+                TestUtil.welcome();
                 break;
         }
     }
@@ -75,10 +78,9 @@ public class CustomerService {
 }
     //取款
     private void do1SelectMoney(){
-        scanner = new Scanner(System.in);
-        //Double goMoney = scanner.nextDouble();
-        String goMoney = scanner.nextLine();
-        switch (goMoney) {
+       Scanner scanner = new Scanner(System.in);
+        String s=scanner.nextLine();
+        switch (s) {
             case "1":
                 double aa = 100;
                 System.out.println("请及时拿走现金100元");
@@ -173,13 +175,115 @@ public class CustomerService {
                 break;
         }
     }
+    // 退卡
+    private void doQuitCard(){
+        System.out.println("您是否继续操作yes/no[Y/N]");
+        Scanner scanner = new Scanner(System.in);
+        String s=scanner.nextLine();
+        if(s.equalsIgnoreCase("y")){
+            TestUtil.welcome(); //结束掉.|
+            if (s.equalsIgnoreCase("n")){
+                TestUtil.oneLeveOption();
+            }
+        }
+    }
     //转账
     private void do2SelectMoney() {
-        System.out.println("请输入您要转账的卡号：");
-        Scanner account = new Scanner(System.in);
-        double money = account.nextInt();
+        System.out.println("请输入对方的卡号：");
+        Scanner scanner = new Scanner(System.in);
+        String otherAccount = scanner.nextLine();
+        System.out.println("请输入您需要转账的金额：");
+        double goMoney = scanner.nextDouble();
+        double money = currentCustomer.getMoney()-goMoney;//自己转账后剩下的钱
+        Customer other = null;
+        for (Customer customer : customerList) {
+            if(customer.getAccount().equals(otherAccount)){
+                other=customer;
+            }
+        }
+        double otherMoney = other.getMoney() + goMoney;//转账后剩余的钱
+        //自己和别人的钱余额都更新一下
+        currentCustomer.setMoney(money);
+        other.setMoney(otherMoney);
     }
+    //存款2
+    private  void do4SelectMoney(){
+        Scanner scanner = new Scanner(System.in);
+        String s=scanner.nextLine();
+        switch (s) {
+            case "1":
+                int aa = 100;
+                System.out.println("存入现金100元");
+                System.out.println("****************");
+                double a1 = currentCustomer.getMoney() + aa;
+                System.out.println("您的余额为" + a1+ "元");
+                currentCustomer.setMoney(a1);
+                break;
 
+            case "2":
+                int  bb = 200;
+                System.out.println("存入现金200元");
+                System.out.println("****************");
+                double a2 = currentCustomer.getMoney() + bb;
+                System.out.println("您的余额为" + a2+ "元");
+                currentCustomer.setMoney(a2);
+                break;
+            case "3":
+                int cc = 300;
+                System.out.println("存入现金300元");
+                System.out.println("****************");
+                double a3 = currentCustomer.getMoney() + cc;
+                System.out.println("您的余额为" + a3+ "元");
+                currentCustomer.setMoney(a3);
+                break;
+            case "4":
+                int dd = 400;
+                System.out.println("存入现金400元");
+                System.out.println("****************");
+                double a4 = currentCustomer.getMoney() + dd;
+                System.out.println("您的余额为" + a4+ "元");
+                currentCustomer.setMoney(a4);
+                break;
+            case "5":
+                int ee = 500;
+                System.out.println("存入现金500元");
+                System.out.println("****************");
+                double a5 = currentCustomer.getMoney() + ee;
+                System.out.println("您的余额为" + a5+ "元");
+                currentCustomer.setMoney(a5);
+                break;
+            case "6":
+                int ff = 500;
+                System.out.println("存入现金500元");
+                System.out.println("****************");
+                double a6 = currentCustomer.getMoney() + ff;
+                System.out.println("您的余额为" + a6+ "元");
+                currentCustomer.setMoney(a6);
+                break;
+            case "7":
+                int gg = 500;
+                System.out.println("存入现金500元");
+                System.out.println("****************");
+                double a7 = currentCustomer.getMoney() + gg;
+                System.out.println("您的余额为" + a7+ "元");
+                currentCustomer.setMoney(a7);
+                break;
+            case "8":
+                System.out.println("其他");
+                Scanner other = new Scanner(System.in);
+                int i=scanner.nextInt();
+                if(i%100==0){
+                    System.out.println("*************");
+                    double h=currentCustomer.getMoney() + i;
+                    System.out.println("你的金额为"+h+"元");
+                    currentCustomer.setMoney(h);
+                }
+                break;
+            default:
+                System.out.println("请输入正确的序号");
+                break;
+        }
+    }
 
 
 
